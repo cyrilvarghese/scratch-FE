@@ -3,7 +3,7 @@ import { openModal, closeModal } from './modal.js';
 import { addURL, getWebURLs } from './urlHandle.js';
 import { extractFileInfo } from './extractFileInfo.js'
 import { showFormattedJsonPopup } from './jsonFormatterModule.js';
-
+import './styles.css';
 
 // Array to store selected files
 let selectedFiles = [];
@@ -14,7 +14,9 @@ let selectedItemsContent = [];
 let selectedOptions = [];
 
 
-// Function to create a file list item
+
+
+
 function createFileItem(file, index, elementId, countElementId) {
     const listItem = document.createElement('li');
     listItem.className = elementId === 'fileList' ? 'fileItem' : 'serverFileItem';
@@ -23,44 +25,39 @@ function createFileItem(file, index, elementId, countElementId) {
     fileNameSpan.textContent = `${file.name}`;
     fileNameSpan.classList.add('truncate-text');
     fileNameSpan.href = file.path;
-    fileNameSpan.target = '_blank'
+    fileNameSpan.target = '_blank';
     listItem.appendChild(fileNameSpan);
+
     if (listItem.className !== 'serverFileItem') {
-        // Create span element for file name
-
-
-        // Create div for page inputs
         const pageInputsDiv = document.createElement('div');
         pageInputsDiv.className = 'pageInputs';
 
-        // Create input for Page From
         const fromPageInput = document.createElement('input');
         fromPageInput.type = 'number';
         fromPageInput.placeholder = 'Page From';
+        fromPageInput.className = 'pageInput';
         pageInputsDiv.appendChild(fromPageInput);
 
-        // Create input for Page To
         const toPageInput = document.createElement('input');
         toPageInput.type = 'number';
         toPageInput.placeholder = 'Page To';
+        toPageInput.className = 'pageInput';
         pageInputsDiv.appendChild(toPageInput);
 
         listItem.appendChild(pageInputsDiv);
     }
 
-
-    // Create remove button
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
+    removeButton.className = 'removeButtonLink';
     removeButton.addEventListener('click', () => {
-
-
         if (elementId === 'fileList') {
+            // Assuming selectedFiles and updateFileList are defined elsewhere
             selectedFiles.splice(index, 1);
             updateFileList(selectedFiles, 'fileList', 'fileListCount');
         } else {
-            // Handle server file removal if needed
             console.log('Remove button clicked for server file:', file.name);
+            // Assume deleteFile is defined elsewhere
             deleteFile(file.name);
         }
     });
@@ -482,4 +479,34 @@ document.getElementById('showJsonPopup').addEventListener('click', () => {
     showFormattedJsonPopup(openAIResponse);
 });
 
+// Example: Call captureValues on button click
+document.getElementById('captureValuesButton').addEventListener('click', () => {
+    captureValues()
+});
 
+// Example: Call sendQuery on another button click
+document.getElementById('sendQueryButton').addEventListener('click', sendQuery);
+
+
+function showLoader(apiName) {
+    document.getElementById('loader').style.display = 'block';
+    document.getElementById('loaderText').textContent = `Loading ${apiName}...`;
+}
+
+function hideLoader() {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('loaderText').textContent = '';
+}
+
+// Intercept Fetch API calls
+const originalFetch = window.fetch;
+window.fetch = async function (url, options = {}) {
+    const apiName = options.headers && options.headers['X-Api-Name']; // Example: 'X-Api-Name' header
+    showLoader(apiName || 'API');
+    try {
+        const response = await originalFetch(url, options);
+        return response;
+    } finally {
+        hideLoader();
+    }
+};

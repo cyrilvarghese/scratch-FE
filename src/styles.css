@@ -99,6 +99,23 @@ input[type="file"] {
 
 .fileItem,
 .serverFileItem {
+    @apply p-4 border border-neutral-200 rounded-lg bg-white flex justify-between shadow-sm items-center mb-5;
+}
+
+.removeButtonLink {
+    @apply text-error-500 hover:text-error-600 hover:underline font-semibold transition-colors duration-300;
+}
+
+.pageInputs {
+    @apply flex space-x-2 mt-2;
+}
+
+.pageInput {
+    @apply border border-gray-300 p-1 rounded text-gray-700;
+}
+
+/* .fileItem,
+.serverFileItem {
     margin-bottom: 10px;
     padding: 8px;
     border: 1px solid var(--border-light);
@@ -128,7 +145,7 @@ input[type="file"] {
 .fileItem button:hover,
 .serverFileItem button:hover {
     background-color: #c0392b;
-}
+} */
 
 /* .serverFileItem {
     border: 1px solid var(--secondary-color);
@@ -369,9 +386,7 @@ input[type="file"] {
 
 .serverFileItem .truncate-text,
 .fileItem .truncate-text {
-    display: inline-block;
     width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* Directly specifying width */
+    @apply inline-block truncate text-blue-500 hover:underline;
 }
