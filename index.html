@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Selector</title>
+    <link href="style.css" rel="stylesheet">
+    <!-- Include this line in the head section of your HTML file -->
+</head>
+
+<body>
+    <div id="loader">
+        <div class="loader-icon"></div>
+        <div id="loaderText">loading...</div>
+    </div>
+
+    <!-- Modal -->
+    <div id="popupModal">
+        <div id="modalContent">
+            <!-- Close button (cross) -->
+            <span id="closeButton">X</span>
+            <!-- Modal content -->
+            <div id="modalText"></div>
+        </div>
+    </div>
+    <div style="width: 1140px; display: flex;    ">
+        <!-- Wrap file list into a div -->
+        <div style="width: 33%; padding: 20px;  " id="fileListContainer">
+            <h2>Add Files</h2>
+
+            <!-- <form id="uploadForm"> -->
+            <!-- Update the HTML for the file input and upload button -->
+            <!-- <input type="file" name="files" id="fileInput" multiple>
+                <ul id="fileList"></ul>
+                <button type="button" id="uploadButton" class="blue-button">Add Files To Source</button>
+            </form> -->
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="pdfFiles">Select PDF files to upload:</label><br>
+                <input type="file" id="fileInput" name="pdf_files" accept=".pdf" multiple><br><br>
+                <ul id="fileList"></ul>
+                <button type="button" id="uploadButton" style="margin-top: 0px;" class="blue-button">Add Files To
+                    Source</button>
+            </form>
+            <!-- Add the count element for local files -->
+            <!-- <div id="fileListCount">Count: 0</div> -->
+            <!-- Add URL Section -->
+            <h2 style="margin-top: 40px;">Add Web URLs</h2>
+            <div style="display: flex; flex-direction: column;">
+                <textarea id="urlInput" style="padding: 10px; 
+     height: 50px; text-align: 
+      left; border: 1px solid #3498db; border-radius: 5px;" placeholder="Add a URL">
+      https://www.nngroup.com/articles/user-interviews/</textarea>
+
+                <button id="addUrlButton" onclick="" style="width: 100%;margin-top: 20px " class="blue-button">
+                    + Add from Web</button>
+
+            </div>
+            <h2 style="margin-top: 40px;">Source Documents</h2>
+            <ul id="serverFileList"></ul>
+            <!-- Add the count element for server files -->
+            <!-- <div id="serverFileListCount">Count: 0</div> -->
+            <!-- Upload Button -->
+
+
+            </button>
+
+
+
+            <!-- Display URLs Section -->
+
+            <!-- <ul id="urlListContainer"></ul> -->
+
+            <div style="display: flex; 
+            justify-content: space-between;
+            flex-direction: row;
+            align-items: center;">
+                <h2 style="margin-top: 20px;">Question</h2>
+                <div>
+                    <label for="numericInput"># of results</label>
+                    <input id="numericInput" type="number" value="5"
+                        style="margin-left: 10px;height: 20px;width: 50px;text-align: center;">
+                </div>
+            </div>
+            <textarea id="queryInput"
+                style="padding: 10px;;  height: 100px; text-align: left; border: 1px solid #3498db; border-radius: 5px;">what are goal directed design ?
+            </textarea>
+
+            <button id="sendQueryButton" class="blue-button">
+                Submit Query
+            </button>
+        </div>
+        <!-- Second Column (Selectable List) -->
+        <div style="width: 33%; padding: 20px" id="selectableListContainer">
+            <h2>Relevant Snippets</h2>
+            <ul id="selectableList"></ul>
+            <!-- Log for selection changes -->
+            <!-- <div id="selectionLog">Selection Log:</div> -->
+        </div>
+        <!-- Third Column (Results Container) -->
+        <div id="resultsContainer" style="width: 33%; padding: 20px;">
+            <h2 style="margin-bottom: 20px;">LLM Configuration</h2>
+
+            <!-- Slider for Creativity -->
+            <label for="creativitySlider"
+                style="display: block; margin-bottom: 10px;"><strong>Creativity:</strong></label>
+            <input type="range" id="creativitySlider" name="creativity" min="0" max="2" step="0.1" value=".6"
+                style="width: 100%; margin-bottom: 8px;">
+            <p style="margin-top: 0px;" id="sliderValue">Creativity Value:0.6</p>
+            <!-- Dropdown for Type -->
+            <label for="templateTypeDropdown" style="display: block; margin-bottom: 10px;margin-top: 20px;">
+                <strong> Layout
+                    Type: </strong></label>
+            <select id="templateTypeDropdown" name="type" style="width: 100%; margin-bottom: 20px;">
+                <option value="branding">Branding Template</option>
+                <option value="creativity">Creativity Template</option>
+                <option value="goals">Goals Template</option>
+                <option value="innovation">Innovation Template</option>
+                <option value="statistics">Statistics Template</option>
+                <option value="statistics-specific">Statistics Template specific</option>
+            </select>
+
+            <!-- Textbox for JSON Response -->
+            <label for="jsonResponse" style="display: block; margin-bottom: 10px;">JSON Response:</label>
+            <div>
+                <textarea id="jsonResponse" rows="5" style="width: 100%; margin-bottom: 20px;"></textarea>
+                <button id="showJsonPopup">Show Formatted JSON</button>
+            </div>
+            <!-- Button to Capture Values -->
+            <button id="captureValuesButton" class="blue-button">
+                Generate Slides
+            </button>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="modal.js"></script>
+    <!-- Add this script to import the functions -->
+    <script type="module">
+        import { captureValues, sendQuery } from './script.js';
+
+        // Example: Call captureValues on button click
+        document.getElementById('captureValuesButton').addEventListener('click', () => {
+            captureValues()
+        });
+
+        // Example: Call sendQuery on another button click
+        document.getElementById('sendQueryButton').addEventListener('click', sendQuery);
+
+        function showLoader(apiName) {
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('loaderText').textContent = `Loading ${apiName}...`;
+        }
+
+        function hideLoader() {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('loaderText').textContent = '';
+        }
+
+        // Intercept Fetch API calls
+        const originalFetch = window.fetch;
+        window.fetch = async function (url, options = {}) {
+            const apiName = options.headers && options.headers['X-Api-Name']; // Example: 'X-Api-Name' header
+            showLoader(apiName || 'API');
+            try {
+                const response = await originalFetch(url, options);
+                return response;
+            } finally {
+                hideLoader();
+            }
+        };
+
+    </script>
+</body>
+
+</html>
