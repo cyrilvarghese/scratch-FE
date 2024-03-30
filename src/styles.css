@@ -6,7 +6,7 @@
 
 :root {
     --primary-color: #3498db;
-    /* Sophisticated blue color */
+    /* Sophisticated enterprise-blue color */
     --secondary-color: #2ecc71;
     /* Fresh green color */
     --background-light: #f9f9f9;
@@ -34,7 +34,7 @@ body {
     background-color: var(--background-light);
 }
 
-.blue-button {
+.enterprise-blue-button {
     padding: 12px 20px;
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -46,12 +46,11 @@ body {
     transition: background-color 0.3s ease-in-out;
 }
 
-.blue-button:hover {
+.enterprise-blue-button:hover {
     background-color: #2980b9;
 }
 
 input[type="file"] {
-    margin-bottom: 20px;
     padding: 12px;
     border: 2px solid var(--primary-color);
     border-radius: 8px;
@@ -78,7 +77,7 @@ input[type="file"] {
 
 #fileList,
 #serverFileList {
-    margin-top: 0px;
+
     list-style-type: none;
     padding: 0;
     text-align: left;
@@ -97,61 +96,7 @@ input[type="file"] {
     margin: 10px;
 }
 
-.fileItem,
-.serverFileItem {
-    @apply p-4 border border-neutral-200 rounded-lg bg-white flex justify-between shadow-sm items-center mb-5;
-}
 
-.removeButtonLink {
-    @apply text-error-500 hover:text-error-600 hover:underline font-semibold transition-colors duration-300;
-}
-
-.pageInputs {
-    @apply flex space-x-2 mt-2;
-}
-
-.pageInput {
-    @apply border border-gray-300 p-1 rounded text-gray-700;
-}
-
-/* .fileItem,
-.serverFileItem {
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid var(--border-light);
-    border-radius: 10px;
-    background-color: var(--background-white);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.fileItem:hover,
-.serverFileItem:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.fileItem button,
-.serverFileItem button,
-.blue-button {
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.fileItem button:hover,
-.serverFileItem button:hover {
-    background-color: #c0392b;
-} */
-
-/* .serverFileItem {
-    border: 1px solid var(--secondary-color);
-    background-color: var(--secondary-color);
-    color: var(--text-light);
-} */
 
 #fileListCount,
 #serverFileListCount {
@@ -329,9 +274,9 @@ input[type="file"] {
     margin-bottom: 5px;
 }
 
-.checkbox {
+/* .checkbox {
     margin-right: 5px;
-}
+} */
 
 .item-text {
     font-size: 16px;
@@ -350,43 +295,121 @@ input[type="file"] {
     padding-left: 40px;
 }
 
-.selectable-item {
-    padding-bottom: 50px;
+
+
+.fileItem,
+.serverFileItem {
+    @apply pt-4 pb-4 border-b border-neutral-200 bg-white flex justify-between items-center;
 }
 
-.selected .item-text {
-    background-color: yellow;
-    /* Highlight color */
+.removeButtonLink {
+    @apply text-error-500 hover:text-error-600 hover:underline font-semibold transition-colors duration-300;
 }
 
-.read-more-link {
-    margin-left: auto;
-    color: blue;
-    /* Link color */
-    padding-left: 40px;
+.pageInputs {
+    @apply flex space-x-2 mt-2;
 }
 
-.checkbox {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    position: absolute;
-    z-index: -1;
-}
-
-.checkbox:checked {
-    background-color: #3498db;
+.pageInput {
+    @apply border border-gray-300 p-1 rounded text-gray-700;
 }
 
 .serverFileItem .truncate-text,
 .fileItem .truncate-text {
     width: 200px;
     /* Directly specifying width */
-    @apply inline-block truncate text-blue-500 hover:underline;
+    @apply inline-block truncate text-enterprise-blue-500 hover:underline;
+}
+
+.question-header {
+    @apply flex justify-between items-center mt-5;
+}
+
+.question-title {
+    @apply text-xl font-semibold text-gray-800;
+}
+
+.label-text {
+    @apply text-gray-700;
+}
+
+.number-input {
+    @apply ml-2 h-10 w-14 text-center border border-neutral-200;
+}
+
+.query-input {
+    @apply p-2 h-24 text-left border border-enterprise-blue-500 rounded-md mt-4 mb-4;
+}
+
+.submit-button {
+    @apply bg-enterprise-blue-500 hover:bg-enterprise-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-enterprise-blue-300;
+}
+
+
+.label-text {
+    @apply block mb-2 font-bold;
+}
+
+.json-response-textarea {
+    @apply w-full p-3 border-2 border-gray-300 rounded-md shadow-sm focus:border-enterprise-blue-300 focus:ring focus:ring-enterprise-blue-200 focus:ring-opacity-50;
+}
+
+.json-button,
+.capture-values-button,
+#addUrlButton,
+#uploadButton {
+    @apply px-4 py-2 rounded bg-enterprise-blue-500 text-white hover:bg-enterprise-blue-700 focus:outline-none focus:ring-2 focus:ring-enterprise-blue-300;
+}
+
+.json-button,
+#uploadButton,
+#addUrlButton {
+    @apply bg-enterprise-blue-300 mb-4
+}
+
+.card {
+    @apply bg-white p-6 rounded-lg shadow-md;
+}
+
+.form-input,
+.url-input {
+    @apply p-2.5 text-left border border-blue-500 rounded-md w-full;
+}
+
+
+
+.form-label {
+    @apply block mb-2 font-bold;
+}
+
+.form-section,
+.url-section {
+    @apply mb-2 mt-4;
+}
+
+.textarea-section {
+    @apply flex flex-col pb-5;
+}
+
+
+
+/* styles.css */
+.selectable-item {
+    @apply flex items-center p-4 border-b border-gray-200 last:border-b-0 hover:shadow-md cursor-pointer transition duration-300 ease-in-out;
+}
+
+.selectable-item.selected {
+    @apply bg-neutral-200 text-white;
+}
+
+.checkbox-wrapper {
+    @apply inline-flex items-center mr-4;
+}
+
+.item-text {
+    @apply flex-grow text-gray-800;
+}
+
+.read-more-link {
+    @apply text-blue-500 hover:text-blue-700 hover:underline;
 }

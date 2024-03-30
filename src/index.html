@@ -27,37 +27,28 @@
     <div style="width: 1140px; display: flex;    ">
         <!-- Wrap file list into a div -->
         <div style="width: 33%; padding: 20px;  " id="fileListContainer">
-            <h2 class="mb-5 text-lg font-bold">Add Files</h2>
+            <div class="card">
+                <h2 class="form-section text-lg font-bold">Add Files</h2>
 
-            <!-- <form id="uploadForm"> -->
-            <!-- Update the HTML for the file input and upload button -->
-            <!-- <input type="file" name="files" id="fileInput" multiple>
-                <ul id="fileList"></ul>
-                <button type="button" id="uploadButton" class="blue-button">Add Files To Source</button>
-            </form> -->
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                <label for="pdfFiles">Select PDF files to upload:</label><br>
-                <input type="file" id="fileInput" name="pdf_files" accept=".pdf" multiple><br><br>
-                <ul id="fileList"></ul>
-                <button type="button" id="uploadButton" style="margin-top: 0px;" class="blue-button">Add Files To
-                    Source</button>
-            </form>
-            <!-- Add the count element for local files -->
-            <!-- <div id="fileListCount">Count: 0</div> -->
-            <!-- Add URL Section -->
-            <h2 class="mb-5 text-lg font-bold">Add Web URLs</h2>
-            <div style="display: flex; flex-direction: column;">
-                <textarea id="urlInput" style="padding: 10px; 
-     height: 50px; text-align: 
-      left; border: 1px solid #3498db; border-radius: 5px;" placeholder="Add a URL">
-      https://www.nngroup.com/articles/user-interviews/</textarea>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <!-- <label for="pdfFiles" class="form-label">Select PDF files to upload:</label> -->
+                    <input type="file" id="fileInput" class="mt-2 w-full" name="pdf_files" accept=".pdf" multiple
+                        class="form-input">
+                    <ul id="fileList"></ul>
+                    <button type="button" id="uploadButton" class="blue-button mt-4">+ Add Files To Source</button>
+                </form>
 
-                <button id="addUrlButton" onclick="" style="width: 100%;margin-top: 20px " class="blue-button">
-                    + Add from Web</button>
-
+                <h2 class="url-section text-lg font-bold">Add Web URLs</h2>
+                <div class="textarea-section">
+                    <textarea rows="3" id="urlInput" class="url-input mt-2"
+                        placeholder="Add a URL">https://www.nngroup.com/articles/user-interviews/</textarea>
+                    <button id="addUrlButton" class="blue-button mt-4">+ Add from Web</button>
+                </div>
             </div>
-            <h2 style="margin-top: 40px;">Source Documents</h2>
-            <ul id="serverFileList"></ul>
+            <div class="card mt-5">
+                <h2 class="mb-5 text-lg font-bold">Source Documents</h2>
+                <ul id="serverFileList"></ul>
+            </div>
             <!-- Add the count element for server files -->
             <!-- <div id="serverFileListCount">Count: 0</div> -->
             <!-- Upload Button -->
@@ -70,69 +61,67 @@
             <!-- Display URLs Section -->
 
             <!-- <ul id="urlListContainer"></ul> -->
-
-            <div style="display: flex; 
-            justify-content: space-between;
-            flex-direction: row;
-            align-items: center;">
-                <h2 style="margin-top: 20px;">Question</h2>
-                <div>
-                    <label for="numericInput"># of results</label>
-                    <input id="numericInput" type="number" value="5"
-                        style="margin-left: 10px;height: 20px;width: 50px;text-align: center;">
+            <div class="card mt-5">
+                <div class="question-header">
+                    <h2 class="question-title">Query</h2>
+                    <div class="flex justify-center items-baseline">
+                        <label for="numericInput" class="label-text"># of results</label>
+                        <input id="numericInput" type="number" value="5" class="number-input">
+                    </div>
                 </div>
-            </div>
-            <textarea id="queryInput"
-                style="padding: 10px;;  height: 100px; text-align: left; border: 1px solid #3498db; border-radius: 5px;">what are goal directed design ?
+                <textarea id="queryInput" class="query-input w-full">how do i conduct good user interviews ?
             </textarea>
 
-            <button id="sendQueryButton" class="blue-button">
-                Submit Query
-            </button>
+                <button id="sendQueryButton" class="submit-button">
+                    Submit Query
+                </button>
+            </div>
+
         </div>
         <!-- Second Column (Selectable List) -->
+
         <div style="width: 33%; padding: 20px" id="selectableListContainer">
-            <h2 class="mb-5 text-lg font-bold">Relevant Snippets</h2>
+            <h2 class="mb-5 mt-10 text-lg font-bold">Relevant Snippets</h2>
             <ul id="selectableList"></ul>
             <!-- Log for selection changes -->
             <!-- <div id="selectionLog">Selection Log:</div> -->
         </div>
         <!-- Third Column (Results Container) -->
+
         <div id="resultsContainer" class="w-1/3 p-5">
-            <h2 class="mb-5 text-lg font-bold">LLM Configuration</h2>
+            <div class="card">
+                <h2 class="mb-5 mt-5 text-lg font-bold">LLM Configuration</h2>
 
-            <!-- Slider for Creativity -->
-            <label for="creativitySlider" class="block mb-2 font-bold">Creativity:</label>
-            <input type="range" id="creativitySlider" name="creativity" min="0" max="2" step="0.1" value=".6"
-                class="w-full mb-2">
-            <p class="mt-0" id="sliderValue">Creativity Value: 0.6</p>
+                <!-- Slider for Creativity -->
+                <label for="creativitySlider" class="block mb-2 font-bold">Creativity</label>
+                <input type="range" id="creativitySlider" name="creativity" min="0" max="2" step="0.1" value=".6"
+                    class="w-full mb-2">
+                <p class="mt-0" id="sliderValue">Creativity Value: 0.6</p>
 
-            <!-- Dropdown for Type -->
-            <label for="templateTypeDropdown" class="block mt-5 mb-2 text-gray-700 font-bold">Layout Type:</label>
-            <select id="templateTypeDropdown" name="type"
-                class="w-full mb-5 px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg shadow-sm bg-white hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition duration-300 ease-in-out">
-                <option value="branding">Branding Template</option>
-                <option value="creativity">Creativity Template</option>
-                <option value="goals">Goals Template</option>
-                <option value="innovation">Innovation Template</option>
-                <option value="statistics">Statistics Template</option>
-                <option value="statistics-specific">Statistics Template specific</option>
-            </select>
-            <!-- Textbox for JSON Response -->
-            <label for="jsonResponse" class="block mb-2 font-bold">JSON Response:</label>
-            <div>
-                <textarea id="jsonResponse" rows="5"
-                    class="w-full p-3 border-2 border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
-                <button id="showJsonPopup"
-                    class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">Show
-                    Formatted JSON</button>
+                <!-- Dropdown for Type -->
+                <label for="templateTypeDropdown" class="block mt-5 mb-2 text-gray-700 font-bold">Layout Type</label>
+                <select id="templateTypeDropdown" name="type"
+                    class="w-full mb-5 px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg shadow-sm bg-white hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition duration-300 ease-in-out">
+                    <option value="branding">Branding Template</option>
+                    <option value="creativity">Creativity Template</option>
+                    <option value="goals">Goals Template</option>
+                    <option value="innovation">Innovation Template</option>
+                    <option value="statistics">Statistics Template</option>
+                    <option value="statistics-specific">Statistics Template specific</option>
+                </select>
+
+                <label for="additionalPrompt" class="label-text mt-4 ">Additonal Instruction</label>
+                <textarea id="additionalPrompt" style="margin-top: 0px;" class="mt-0 query-input w-full">2 slides
+            </textarea>
+                <!-- Button to Capture Values -->
+                <button id="captureValuesButton" class="capture-values-button">Generate Slides</button>
+
+                <!-- Textbox for JSON Response -->
+                <label for="jsonResponse" class="label-text mt-5">JSON Response</label>
+
+                <button id="showJsonPopup" class="json-button">Show Formatted JSON</button>
+
             </div>
-
-            <!-- Button to Capture Values -->
-            <button id="captureValuesButton"
-                class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                Generate Slides
-            </button>
         </div>
     </div>
 

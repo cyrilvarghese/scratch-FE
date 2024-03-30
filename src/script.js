@@ -108,7 +108,7 @@ function updateCount(count, elementId) {
 function clearSelection() {
     selectedItems = [];
     selectedItemsContent = [];
-    renderSelectableList()
+    createSelectableList()
 }
 
 // Function to update the selectable list on the UI
@@ -145,6 +145,7 @@ function createSelectableList(data) {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.classList.add('checkbox');
+        checkbox.classList.add('scale-125');
         listItem.appendChild(checkbox);
 
         // Create item text
@@ -254,7 +255,8 @@ export async function captureValues() {
     const creativityValue = document.getElementById('creativitySlider').value;
     const typeValue = document.getElementById('templateTypeDropdown').value;
     const queryInput = document.getElementById('queryInput');
-    const queryText = queryInput.value;
+    const additionalPrompt = document.getElementById('additionalPrompt');
+    const queryText = queryInput.value + "\n" + additionalPrompt.value;
     // Log values to console
     console.log('Creativity:', creativityValue);
     console.log('Type:', typeValue);
