@@ -125,7 +125,7 @@ input[type="file"] {
 }
 
 /* Modal styles */
-.modal {
+/* .modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -148,8 +148,8 @@ input[type="file"] {
 
 #modalText {
     overflow: auto;
-    height: 100%;
-}
+    height: 80%;
+} */
 
 .close {
     position: absolute;
@@ -197,7 +197,7 @@ input[type="file"] {
     line-height: 150%;
     top: 80px;
     width: 40%;
-    height: 500px;
+    height: 80vh;
     margin: 0 auto;
 
 }
@@ -412,4 +412,48 @@ input[type="file"] {
 
 .read-more-link {
     @apply text-blue-500 hover:text-blue-700 hover:underline;
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+    @apply fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50;
+}
+
+/* Modal Content */
+.modal-content {
+    @apply relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white;
+}
+
+/* Close Button */
+.close-button {
+    @apply absolute top-0 right-0 cursor-pointer p-4 text-gray-800 text-lg font-semibold;
+}
+
+/* Modal Text and Links */
+.modal-text {
+    @apply mb-4;
+}
+
+.modal-link {
+    @apply text-blue-500 hover:text-blue-700 underline block mb-2;
+}
+
+/* Last link in the modal might not need a bottom margin */
+.modal-link:last-child {
+    @apply mb-0;
+}
+
+.modal {
+    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center;
+}
+
+.modal-content {
+    @apply bg-white p-6 rounded-lg shadow-lg text-center m-4;
+    /* m-4 ensures some margin around the modal content for small screens */
+}
+
+/* Tailwind CSS does not directly support custom properties for height via @apply, so #modalText's height is handled separately */
+#modalText {
+    @apply overflow-auto;
+    height: 80%;
 }

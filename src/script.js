@@ -151,7 +151,7 @@ function createSelectableList(data) {
         // Create item text
         const itemText = document.createElement('p');
         itemText.classList.add('item-text');
-        itemText.textContent = item // Displaying the first 100 characters
+        itemText.textContent = item.page_content // Displaying the first 100 characters
         listItem.appendChild(itemText);
 
         // Create "Read More" link

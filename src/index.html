@@ -14,14 +14,17 @@
         <div class="loader-icon"></div>
         <div id="loaderText">loading...</div>
     </div>
-
-    <!-- Modal -->
-    <div id="popupModal">
-        <div id="modalContent">
-            <!-- Close button (cross) -->
-            <span id="closeButton">X</span>
-            <!-- Modal content -->
-            <div id="modalText"></div>
+    <!-- Modal Backdrop -->
+    <div id="popupModal" class="modal-backdrop" style="display: none;">
+        <!-- Modal Content -->
+        <div id="modalContent" class="modal-content">
+            <!-- Close Button -->
+            <span id="closeButton" class="close-button">X</span>
+            <!-- Modal Text Content -->
+            <div id="modalText" class="modal-text"></div>
+            <!-- Links -->
+            <a id="ulrSrc" href="#" target="_blank" class="modal-link">Original Article </a>
+            <a id="fileSrc" href="#" target="_blank" class="modal-link">Downloaded Text Version </a>
         </div>
     </div>
     <div style="width: 1140px; display: flex;    ">
